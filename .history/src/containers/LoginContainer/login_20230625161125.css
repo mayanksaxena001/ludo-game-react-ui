@@ -1,0 +1,54 @@
+.login {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(23, 41, 5);
+  width: 90%;
+  height: 90%;
+}
+
+input {
+  text-align: center;
+  height: 50px;
+  width: 90%;
+  margin: 10px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 20%;
+  height: 20%;
+  animation: spin 1s linear infinite;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

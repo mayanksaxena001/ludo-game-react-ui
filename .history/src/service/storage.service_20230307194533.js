@@ -1,0 +1,3 @@
+StorageService = () => {
+
+}

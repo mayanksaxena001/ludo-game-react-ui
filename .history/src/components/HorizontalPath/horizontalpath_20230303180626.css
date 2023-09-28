@@ -1,0 +1,30 @@
+.horizontal-path-1 {
+	/* height: 100%; */
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+	/* border: 5px dotted aqua; */
+	flex-direction: column;
+	margin: 5px;
+	background-color: blue;
+}
+
+.horizontal-path-2 {
+	/* height: 100%; */
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	/* border: 5px dotted aqua; */
+	flex-direction: column;
+	/* background-color: brown; */
+}
+
+.hpath {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+	/* background-color: blanchedalmond; */
+}

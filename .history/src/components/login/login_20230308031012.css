@@ -1,0 +1,25 @@
+.login {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: chartreuse;
+  width: 90%;
+  height: 90%;
+}
+
+input {
+  text-align: center;
+  height: 50px;
+  width: 90%;
+  margin: 10px;
+}

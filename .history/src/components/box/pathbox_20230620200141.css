@@ -1,0 +1,29 @@
+.path-box {
+	height: 50px;
+	width: 58px;
+	border: 2px dotted black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* border-style: groove; */
+	/* border-radius: 100px; */
+	background-color: transparent;
+	transition: background-color 0.3s ease-in-out;
+}
+
+div[disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.box_tokens {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	color: white;
+}

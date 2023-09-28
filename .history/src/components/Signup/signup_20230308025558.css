@@ -1,0 +1,34 @@
+.signup {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: aqua;
+}
+
+body>#root>div {
+  height: 100vh;
+}
+
+.popup {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: blueviolet;
+  width: 90%;
+  height: 90%;
+}
+
+input {
+  height: 50px;
+  width: 90%;
+}

@@ -1,0 +1,11 @@
+.path-box {
+	height: 50px;
+	width: 58px;
+	border: 2px dotted aliceblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    color: white;
+    border-style: outset;
+}

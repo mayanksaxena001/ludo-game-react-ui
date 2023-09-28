@@ -1,0 +1,70 @@
+.login {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(23, 41, 5);
+  width: 90%;
+  height: 90%;
+}
+
+input {
+  text-align: center;
+  height: 50px;
+  width: 90%;
+  margin: 10px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 20%;
+  height: 20%;
+  animation: spin 1s linear infinite;
+}
+
+
+.list-transition-enter {
+  /*We give the list the initial dimension of the list button*/
+  top: 0;
+  width: 120px;
+  max-height: 40px;
+  color: transparent;
+  background-color: #5a564c;
+  }
+  /* This is where we can add the transition*/
+  .list-transition-enter-active {
+  top: 45px;
+  width: 200px;
+  max-height: 200px;
+  background-color: #9e8949;
+  transition: all 400ms;
+  }
+  /* This fires as soon as the this.state.showList is false */
+  .list-transition-exit {
+  top: 45px;
+  width: 200px;
+  max-height: 200px;
+  background-color: #9e8949;
+  }
+  /* fires as element leaves the DOM*/
+  .list-transition-exit-active {
+  top: 0;
+  width: 120px;
+  max-height: 40px;
+  color: transparent;
+  background-color: #5a564c;
+  transition: all 400ms;
+  }

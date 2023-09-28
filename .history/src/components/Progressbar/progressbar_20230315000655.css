@@ -1,0 +1,15 @@
+.progressbar {
+	height: 100%;
+	width: 100%;
+	background-color: #e0e0de;
+	border-radius: 43%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.labelStyles {
+    padding: 5;
+    color: 'white';
+    font-weight: 'bold';
+}

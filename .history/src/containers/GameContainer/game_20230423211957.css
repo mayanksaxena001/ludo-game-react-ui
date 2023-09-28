@@ -1,0 +1,8 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: yellow;
+    width: 150px;
+    height: 300px;
+}

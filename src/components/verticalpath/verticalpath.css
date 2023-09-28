@@ -1,0 +1,33 @@
+.vertical-path-1 {
+	height: 100%;
+	width: 20%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	/* border: 5px dotted aqua; */
+	flex-direction: row;
+	margin: 0 5px 0 5px;
+	/* background-color: yellow; */
+	/* padding-bottom: 0px; */
+}
+
+.vertical-path-2 {
+	height: 100%;
+	width: 20%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	/* border: 5px dotted aqua; */
+	flex-direction: row;
+	margin: 0 5px 0 5px;
+	/* background-color: blueviolet; */
+}
+
+
+.vpath {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	/* background-color: green; */
+}

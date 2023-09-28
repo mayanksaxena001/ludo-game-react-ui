@@ -1,0 +1,11 @@
+.token {
+    /* margin: 5px; */
+    transition: linear;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 80px;
+    border-style: inset;
+    font-size: 45px;
+}

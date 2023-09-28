@@ -1,0 +1,26 @@
+// import logo from './logo.svg';
+import React from 'react';
+import './signup.css';
+import { useEffect, useState } from 'react';
+
+function Signup() {
+  const [fetchData, setFetch] = useState(false);
+
+  useEffect(() => { }, []);
+
+  register = ()=>{
+
+  }
+  return (
+    <div className='signup'>
+      <form >
+        <input placeholder='Name'></input>
+        <input placeholder='Username'></input>
+        <input placeholder='password' type='password'></input>
+        <button onClick={()=>register()}>Update </button>
+      </form>
+    </div>
+  );
+}
+
+export default Signup;
