@@ -6,9 +6,12 @@
   justify-content: space-between;
   height: 100vh;
   width: 100%;
+  background-image: url("/img/forest.jpg");
+  background-size: cover;
   /* background-image: linear-gradient(-45deg, yellow 0%, yellow 25%, yellow 51%, #ff357f 100%); */
-  animation: color 9s infinite linear;
+  /* animation: color 9s infinite linear; */
   background-color: #0b1116;
+  animation: homeAnimation 2s linear;
 }
 
 @keyframes color {
@@ -35,11 +38,6 @@
   100% {
     background: #33CCCC;
   }
-}
-
-
-body>#root>div {
-  height: 100vh;
 }
 
 
@@ -134,5 +132,17 @@ body>#root>div {
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+@keyframes homeAnimation {
+  0% {
+      opacity: 0;
+      transform: translateY(-50px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
   }
 }

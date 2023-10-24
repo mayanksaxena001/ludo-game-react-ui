@@ -13,6 +13,7 @@ import StorageService from '../../service/storage.service';
 import './dashboard.css';
 import { Button, Select } from '@material-ui/core';
 import LogoutIcon from '@mui/icons-material/Logout';
+import NewDashBoard from './DashBoard';
 
 function Dashboard(props) {
     // const { user } = props;
@@ -174,7 +175,8 @@ function Dashboard(props) {
             </div>
         </div>
     );
-    return content;
+    const newDashBoard = <NewDashBoard games={games} user={user}></NewDashBoard>;
+    return newDashBoard;
 
 
 }
