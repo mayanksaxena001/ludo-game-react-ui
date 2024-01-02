@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import Types from '../actions/actionTypes';
 import authService from '../service/auth.service';
 import storageService from '../service/storage.service';
-
+//TODO: use authenticated flag and user id 
 const initialState = { token: '', loading: false, error: '' };
 
 export const signupUser = createAsyncThunk(Types.SIGN_UP, async (data) => {
@@ -50,6 +50,7 @@ const authSlice = createSlice({
       }).addCase(signupUser.pending, (state, action) => {
         state.loading = true;
       }).addCase(signupUser.rejected, (state, action) => {
+        //TODO : add rejected condition
         if (action.error) state.error = action.error.message;
         state.loading = false;
       })

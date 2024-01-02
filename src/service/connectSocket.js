@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import { connectSocketToServer, disconnectSocket, joinRoom, receiveMessage, resetSocketData, sendMessageToServer } from '../reducers/socketReducer';
+import { chatMessages, connectSocketToServer, disconnectSocket, joinRoom, receiveMessage, resetSocketData, sendMessageToServer } from '../reducers/socketReducer';
 
 export default class SocketController {
     constructor() {
@@ -18,6 +18,12 @@ export default class SocketController {
         if (this.socket) {
             this.socket.emit('send_message', data);
             dispatch(sendMessageToServer(data));
+        }
+    };
+
+    sendChatMessage = (data) => (dispatch) => {
+        if (this.socket) {
+            this.socket.emit('send_chat_message', data);
         }
     };
 
@@ -69,6 +75,10 @@ export default class SocketController {
 
         socket.on("received_message", (data) => {
             dispatch(receiveMessage(data));
+        });
+
+        socket.on("chat_message_recieved", (data) => {
+            dispatch(chatMessages(data));
         });
 
         socket.on("player_joined", (data) => {

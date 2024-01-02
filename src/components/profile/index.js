@@ -1,6 +1,5 @@
 // import logo from './logo.svg';
 import { Avatar } from '@material-ui/core';
-import { Person, PhotoCamera } from '@material-ui/icons';
 import React from 'react';
 import './index.css';
 

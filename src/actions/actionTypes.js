@@ -28,6 +28,9 @@ const Types = {
   CONNECT_SOCKET:'CONNECT_SOCKET',
   DISCONNECT_SOCKET:'DISCONNECT_SOCKET',
 
+  //Audio
+  BOMB_SOUND:'BOMB_SOUND'
+
 };
 
 export default Types;

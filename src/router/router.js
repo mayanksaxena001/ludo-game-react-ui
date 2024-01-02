@@ -9,9 +9,8 @@ import AppHome from '../containers/HomeContainer';
 import { Provider } from 'react-redux';
 import store from '../store';
 
-
+//TODO: use condtional routing
 export function router() {
-
   return <Provider store={store}>
     <Router>
       <Routes >
