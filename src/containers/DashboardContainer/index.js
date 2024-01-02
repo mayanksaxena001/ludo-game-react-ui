@@ -176,7 +176,7 @@ function Dashboard(props) {
         </div>
     );
     const newDashBoard = <NewDashBoard games={games} user={user}></NewDashBoard>;
-    return newDashBoard;
+    return content;
 
 
 }

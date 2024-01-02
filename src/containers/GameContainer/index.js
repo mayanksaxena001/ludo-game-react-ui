@@ -6,6 +6,7 @@ import { addPlayer, disconnectSocket, setDiceValue, setGame, setPlayerTurn, upda
 import { fetchUser } from '../../reducers/userSlice';
 import './game_container.css';
 import { Button } from '@material-ui/core';
+import ChatSidebar from '../../components/sidebar';
 let socketController = null;
 
 function LudoGame(props) {
@@ -13,7 +14,7 @@ function LudoGame(props) {
     const dispatch = useDispatch();
     const { currentGame, loading } = useSelector(state => state.game);
     const { user } = useSelector(state => state.user);
-    const { joinedRoom, gameData, connected, player } = useSelector(state => state.socket);
+    const { joinedRoom, gameData, connected, player, messages } = useSelector(state => state.socket);
 
     // const gameStarted = useState(gameData.has_started);
     const [gameOver, setGameOver] = useState(gameData.has_stopped);
@@ -66,6 +67,11 @@ function LudoGame(props) {
     const handleTokenMove = (data) => {
         console.log('Token clicked..', data);
         dispatch(socketController.selectedToken({ tokenId: data.id, room: currentGame.room, userId: user.id }));
+    }
+
+    const handleSendMessage = (message) => {
+        let data = { room: currentGame.room, message: { text: message, sender: user.name } }
+        dispatch(socketController.sendChatMessage(data));
     }
 
     const handleTimeOut = () => {
@@ -137,6 +143,7 @@ function LudoGame(props) {
     const content = (!gameData.has_started) ? <WaitingWindow /> : (
         <SocketChannelContext.Provider value={gameData}>
             <GameBoard id={currentGame.id} player={player} handleTokenMove={handleTokenMove} gameData={gameData} dicehandler={dicehandler} handleTimeOut={handleTimeOut} startGameHandler={startGameHandler} />
+            <ChatSidebar room={currentGame.room} handleSendMessage={handleSendMessage} socketController={socketController}></ChatSidebar>
         </SocketChannelContext.Provider>
     );
     return <>

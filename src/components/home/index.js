@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import './home.css';
+import Gamified from './gamified';
 
 function Home() {
   let navigate = useNavigate();
@@ -75,6 +76,10 @@ function Home() {
 
     </div>
   );
+
+  // return (<>
+  //   <Gamified></Gamified>
+  // </>)
 }
 
 export default Home;

@@ -16,7 +16,6 @@ function Token(props) {
         if (enabled) return "token circle";
         return `token token.${color}`;
     }
-    console.log('tokenData', tokenData);
     return (
         <div disabled={!enabled} style={{ backgroundColor: 'white' }} className={getClassName()} onClick={() => handleTokenMove(tokenData)} >
             <div style={{ backgroundColor: color }} className="head"></div>

@@ -1,8 +1,9 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { act } from 'react-dom/test-utils';
 import GameData from '../models/gameData';
 import Player from '../models/player';
 
-const initialState = { loading: false, error: '', connected: false, player: Object.assign({}, Player), gameData: Object.assign({}, GameData), joinedRoom: false, messages: {} };
+const initialState = { loading: false, error: '', connected: false, player: Object.assign({}, Player), gameData: Object.assign({}, GameData), joinedRoom: false, messages: [], chatboxexpanded: false };
 
 
 const socketSlice = createSlice({
@@ -97,6 +98,13 @@ const socketSlice = createSlice({
             //deep copy
             state.gameData = action.payload;
         },
+        chatMessages(state, action) {
+            console.log('chat message received...', action.payload);
+            if (action.payload) state.messages.push(action.payload);
+        },
+        setChatboxExpanded(state, action) {
+           state.chatboxexpanded = action.payload;
+        },
         reset: () => initialState
     },
 });
@@ -104,5 +112,6 @@ const socketSlice = createSlice({
 export const { connectSocket: connectSocketToServer, disconnectSocket, receiveMessage,
     joinRoom, sendMessage: sendMessageToServer, setGame, addPlayer, setPlayerCount,
     setGameStopped, setTokenCount, setTimeout,
-    setDiceValue, setPlayerTurn, updateGameData, setGameStarted, reset: resetSocketData } = socketSlice.actions;
+    setDiceValue, setPlayerTurn, updateGameData, setGameStarted, reset: resetSocketData,
+    chatMessages, setChatboxExpanded } = socketSlice.actions;
 export default socketSlice.reducer;

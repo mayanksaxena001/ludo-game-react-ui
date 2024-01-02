@@ -9,7 +9,7 @@ const AppHome = () => {
 
     const playSound = () => {
         let audio = new Audio(entranceThemeSound);
-        audio.play();
+        // audio.play();
         return audio;
       }
 
