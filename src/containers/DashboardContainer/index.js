@@ -60,7 +60,6 @@ function Dashboard(props) {
         navigate('/game');
     }
 
-
     const Logout = () => {
         return <div>
             <Button block="true" size="large" type="submit" onClick={() => handleLogout()}>
@@ -177,8 +176,6 @@ function Dashboard(props) {
     );
     const newDashBoard = <NewDashBoard games={games} user={user}></NewDashBoard>;
     return content;
-
-
 }
 
 export default Dashboard;

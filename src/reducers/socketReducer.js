@@ -44,6 +44,9 @@ const socketSlice = createSlice({
                             state.player = state.gameData.players[state.player.id];
                         }
                     }
+                    if (data.home) {
+                        state.gameData.home = data.home;
+                    }
                 }
             }
         },

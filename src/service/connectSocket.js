@@ -55,11 +55,22 @@ export default class SocketController {
         }
     };
 
-    connectSocket = () => async (dispatch) => {
-        console.log('connect socket..');
-        const socket = io(process.env.REACT_APP_BASE_API_URL); // replace with your own server URL
+    connectSocket = (token) => async (dispatch) => {
+        console.log('connecting socket..');
+        const socket = io(process.env.REACT_APP_BASE_API_URL);
+        //     , {
+        //     query: { token }
+        // }
+        if (!socket) return;
         this.configSocket(socket, dispatch);
         this.socket = socket;
+    };
+
+    disconnectSocket = () => async (dispatch) => {
+        console.log('disconnect socket..');
+        if (this.socket) {
+            this.socket.disconnect();
+        }
     };
 
     configSocket = (socket, dispatch) => {

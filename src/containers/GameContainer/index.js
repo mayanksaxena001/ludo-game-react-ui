@@ -15,6 +15,7 @@ function LudoGame(props) {
     const { currentGame, loading } = useSelector(state => state.game);
     const { user } = useSelector(state => state.user);
     const { joinedRoom, gameData, connected, player, messages } = useSelector(state => state.socket);
+    const { token } = useSelector(state => state.auth);
 
     // const gameStarted = useState(gameData.has_started);
     const [gameOver, setGameOver] = useState(gameData.has_stopped);
@@ -32,7 +33,7 @@ function LudoGame(props) {
         //TODO : get current game from server if not present
 
         if (!user) dispatch(fetchUser());
-        if (connected === false) dispatch(socketController.connectSocket());
+        if (connected === false) dispatch(socketController.connectSocket(token));
         if (currentGame && gameData && !gameData.game.id) dispatch(setGame(currentGame));
         if (currentGame.room && connected && !joinedRoom) {
             if (user) {
@@ -45,8 +46,9 @@ function LudoGame(props) {
 
         }
 
-        // return ()=>{
-        //     if(connected === false) socketController=null;
+        //TODO problem with cleanupcode
+        // return () => {
+        //     if (connected === true) dispatch(socketController.disconnectSocket());
         // }
     }, [dispatch, gameData, connected, currentGame, joinedRoom, loading]);
 
@@ -54,19 +56,19 @@ function LudoGame(props) {
     const dicehandler = (data) => {
         if (data) {//data.has_started
             console.log('Dice data', data);
-            dispatch(socketController.diceRoll({ diceValue: data, room: currentGame.room, userId: user.id }));
+            dispatch(socketController.diceRoll({ diceValue: data, room: currentGame.room, userId: user.id, gameId: currentGame.id }));
         }
     }
 
     const startGameHandler = () => {
         //TODO start game / disable start button when all players have not joined
         console.log('starting game...');
-        dispatch(socketController.startGame({ userId: user.id, room: currentGame.room }));
+        dispatch(socketController.startGame({ userId: user.id, room: currentGame.room, gameId: currentGame.id }));
     }
 
     const handleTokenMove = (data) => {
         console.log('Token clicked..', data);
-        dispatch(socketController.selectedToken({ tokenId: data.id, room: currentGame.room, userId: user.id }));
+        dispatch(socketController.selectedToken({ tokenId: data.id, room: currentGame.room, userId: user.id, gameId: currentGame.id }));
     }
 
     const handleSendMessage = (message) => {
@@ -114,15 +116,31 @@ function LudoGame(props) {
 
     const winners = () => {
         let count = 0;
-        return gameData.home.map(player => {
+        let players = gameData.players;
+        let home = gameData.home;
+        let result = [];
+        for (let i = 0; i < home.length; i++) {
+            result.push(home[i]);
+
+        }
+        for (var key in players) {
+            const player = players[key];
+            let found = false;
+            for (let i = 0; i < home.length; i++) {
+                if (home[i] === player.id) found = true;
+
+            }
+            if (!found) result.push(player.id);
+        }
+
+        return result.map(player => {
             const username = gameData.players[player].username;
             count++;
             return <div key={player} className='active_player'>
-                <span>{username}</span>
+                <span>{count}</span> : <span>{username}</span>
             </div>;
         });
     }
-
 
     const WaitingWindow = () => {
 
