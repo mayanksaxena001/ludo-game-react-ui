@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import { chatMessages, connectSocketToServer, disconnectSocket, joinRoom, receiveMessage, resetSocketData, sendMessageToServer } from '../reducers/socketReducer';
+import { chatMessages, connectSocketToServer, disconnectSocket, joinRoom, receiveMessage, resetSocketData, sendMessageToServer,setPlayerActive } from '../reducers/socketReducer';
 
 export default class SocketController {
     constructor() {
@@ -94,7 +94,7 @@ export default class SocketController {
 
         socket.on("player_joined", (data) => {
             console.log('new player joined..', data);
-            // dispatch(receiveMessage(data));
+            dispatch(setPlayerActive(data));
         });
     }
 

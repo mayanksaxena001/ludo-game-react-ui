@@ -61,7 +61,7 @@ function House(props) {
     </>
   }
   return (
-    <div disabled={isDisabled} className={getHouseClass()} style={{ borderColor: color, height: { height }, minHeight: { minHeight_ }, maxHeight: { maxHeight }, width: { width }, minWidth: { minWidth_ }, maxWidth: { maxWidth } }}>
+    <div disabled={!isDisabled} className={getHouseClass()} style={{ borderColor: color, height: { height }, minHeight: { minHeight_ }, maxHeight: { maxHeight }, width: { width }, minWidth: { minWidth_ }, maxWidth: { maxWidth } }}>
       {tokenBox()}
       <h1 style={{ backgroundColor: { color } }}>
         {playerName()}

@@ -20,7 +20,7 @@ function GameBoard(props) {
   // const prevData = usePrevious(gameData);
 
   let height = '50px', width = '50px';
-  const isEnabled = player !== undefined && player.player_turn === gameData.player_turn ? true : false;
+  const isEnabled = player !== undefined && player.active && player.player_turn === gameData.player_turn ? true : false;
   let PLAYER_1 = '1', PLAYER_2 = '2', PLAYER_3 = '3', PLAYER_4 = '4';
   let player1Id = gameData !== undefined && gameData.turns !== undefined ? gameData.turns[PLAYER_1] : null,
     player2Id = gameData !== undefined && gameData.turns !== undefined ? gameData.turns[PLAYER_2] : null,

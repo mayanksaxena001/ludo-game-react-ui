@@ -10,6 +10,7 @@ import ChatSidebar from '../../components/sidebar';
 let socketController = null;
 
 function LudoGame(props) {
+    const { isBot } = props;
     const SocketChannelContext = React.createContext();
     const dispatch = useDispatch();
     const { currentGame, loading } = useSelector(state => state.game);
@@ -19,9 +20,9 @@ function LudoGame(props) {
 
     // const gameStarted = useState(gameData.has_started);
     const [gameOver, setGameOver] = useState(gameData.has_stopped);
-    console.log('GameData', gameData);
-    console.log('Player', player);
-    console.log('socketController', socketController);
+    // console.log('GameData', gameData);
+    // console.log('Player', player);
+    // console.log('socketController', socketController);
     // console.log('game', game);
 
     useEffect(() => {
@@ -90,7 +91,7 @@ function LudoGame(props) {
             if (player) result.push(player);
         }
         return result.map(player => {
-            return <div key={player.id} className='active_player'>
+            return <div key={player.id} className='active_player' disabled={!player.active}>
                 <span>{player.username}</span>
             </div>;
         });

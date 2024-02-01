@@ -106,7 +106,15 @@ const socketSlice = createSlice({
             if (action.payload) state.messages.push(action.payload);
         },
         setChatboxExpanded(state, action) {
-           state.chatboxexpanded = action.payload;
+            state.chatboxexpanded = action.payload;
+        },
+        setPlayerActive(state, action) {
+            let userId = action.payload;
+            let player = state.gameData.players[userId];
+            if (player) {
+                player.active = true;
+                state.gameData.players[userId] = player;
+            }
         },
         reset: () => initialState
     },
@@ -116,5 +124,5 @@ export const { connectSocket: connectSocketToServer, disconnectSocket, receiveMe
     joinRoom, sendMessage: sendMessageToServer, setGame, addPlayer, setPlayerCount,
     setGameStopped, setTokenCount, setTimeout,
     setDiceValue, setPlayerTurn, updateGameData, setGameStarted, reset: resetSocketData,
-    chatMessages, setChatboxExpanded } = socketSlice.actions;
+    chatMessages, setChatboxExpanded ,setPlayerActive} = socketSlice.actions;
 export default socketSlice.reducer;
