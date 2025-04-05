@@ -55,7 +55,7 @@ function Home() {
   // const header = <header className='App-header'>
   //   <h1>CLUB X</h1>
   // </header>;
-  const img_spin = <img width='100%' height='100%' src='/img/2.gif' alt="logo" />;
+  const img_spin = <img width='100%' height='100%' src='/img/3.gif' alt="logo" />;
 
 
   return (

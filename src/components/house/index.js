@@ -8,7 +8,7 @@ import './house.css';
 
 function House(props) {
 
-  const { id, player, minHeight, minWidth, color, data, handleTokenMove, handleTimeOut,isEnabled } = props;
+  const { id, player, minHeight, minWidth, color, data, handleTokenMove, handleTimeOut, isEnabled } = props;
   const height = 6 * minHeight;
   const minHeight_ = 6 * minHeight;
   const maxHeight = 6 * minHeight;
@@ -17,10 +17,11 @@ function House(props) {
   const minWidth_ = 6 * minHeight;
   const maxWidth = 6 * minHeight;
 
-
+  let dicevalues = data.previousDiceValues[player.player_turn]?data.previousDiceValues[player.player_turn]:[0,0,0,0];
   useEffect(() => {
     console.log('house use effect');
   });
+
 
   const getHouseClass = () => {
     // if (!player.active) return "house disabled";
@@ -29,7 +30,7 @@ function House(props) {
     // else return "house";
   }
 
-  const isDisabled = player != null && player.active && player.player_turn == data.player_turn ? true : false;
+  const enabled = player != null && player.player_turn === data.player_turn ? true : false;
   const displayProgressbar = () => {
     //TODO : add player id to check
     if (data.has_started && player.player_turn === data.player_turn) return <ProgressBar key={id} bgcolor={color} handleTimeOut={handleTimeOut} data={data} />
@@ -48,20 +49,30 @@ function House(props) {
     let token2 = tokens && tokens[1] && tokens[1].position === 'base' ? [tokens[1]] : [];
     let token3 = tokens && tokens[2] && tokens[2].position === 'base' ? [tokens[2]] : [];
     let token4 = tokens && tokens[3] && tokens[3].position === 'base' ? [tokens[3]] : [];
-
+    const diceImages = (value) => {
+      const imageUrl = `/img/dice${value}.png`;
+      return <img width='100%' height='100%' src={imageUrl} alt="logo" />;
+    }
     return <>
       <div className='tokens'>
-        <Box isEnabled={isEnabled}  height={minHeight} width={minWidth} tokens={token1} handleTokenMove={handleTokenMove} />
-        <Box isEnabled={isEnabled}  height={minHeight} width={minWidth} tokens={token2} handleTokenMove={handleTokenMove} />
+        <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token1} handleTokenMove={handleTokenMove} />
+        <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token2} handleTokenMove={handleTokenMove} />
+      </div>
+      <div className='diceValues'>
+        {dicevalues.map(value => {
+          return <div key={value}>
+            {diceImages(value)}
+          </div>;
+        })}
       </div>
       <div className='tokens'>
         <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token3} handleTokenMove={handleTokenMove} />
-        <Box isEnabled={isEnabled}  height={minHeight} width={minWidth} tokens={token4} handleTokenMove={handleTokenMove} />
+        <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token4} handleTokenMove={handleTokenMove} />
       </div>
     </>
   }
   return (
-    <div disabled={!isDisabled} className={getHouseClass()} style={{ borderColor: color, height: { height }, minHeight: { minHeight_ }, maxHeight: { maxHeight }, width: { width }, minWidth: { minWidth_ }, maxWidth: { maxWidth } }}>
+    <div disabled={!enabled} className={getHouseClass()} style={{ borderColor: color, height: { height }, minHeight: { minHeight_ }, maxHeight: { maxHeight }, width: { width }, minWidth: { minWidth_ }, maxWidth: { maxWidth } }}>
       {tokenBox()}
       <h1 style={{ backgroundColor: { color } }}>
         {playerName()}

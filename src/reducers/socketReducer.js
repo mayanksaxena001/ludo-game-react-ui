@@ -27,8 +27,8 @@ const socketSlice = createSlice({
                     if (data.diceCastComplete !== undefined) state.gameData.diceCastComplete = data.diceCastComplete;
                     if (data.connected !== undefined) state.connected = data.connected;
                     if (data.game && !state.gameData.game) state.gameData.game = data.game;
-                    if (data.has_started != null) state.gameData.has_started = data.has_started;
-                    if (data.has_stopped != null) state.gameData.has_stopped = data.has_stopped;
+                    if (data.has_started !== null) state.gameData.has_started = data.has_started;
+                    if (data.has_stopped !== null) state.gameData.has_stopped = data.has_stopped;
                     if (data.player_count) state.gameData.player_count = data.player_count;
 
                     if (data.token_count) state.gameData.token_count = data.token_count;
@@ -38,15 +38,21 @@ const socketSlice = createSlice({
                     if (data.player_turn) state.gameData.player_turn = data.player_turn;
                     if (data.player_count) state.gameData.player_count = data.player_count;
                     if (data.turns) state.gameData.turns = data.turns;
+                     state.gameData.move_token=data.move_token;
+                     if(data.selectedTokenId) state.gameData.selectedTokenId=data.selectedTokenId;
                     if (data.players) {
                         state.gameData.players = data.players;
                         if (state.player && state.player.id && state.gameData.players[state.player.id]) {
                             state.player = state.gameData.players[state.player.id];
                         }
                     }
+                    if(data.previousDiceValues){
+                        state.gameData.previousDiceValues=data.previousDiceValues;
+                    }
                     if (data.home) {
                         state.gameData.home = data.home;
                     }
+
                 }
             }
         },

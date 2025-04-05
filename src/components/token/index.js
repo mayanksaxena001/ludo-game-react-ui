@@ -7,17 +7,27 @@ function Token(props) {
     useEffect(() => {
         console.log('token use effect');
     });
+    const entranceThemeSound = "/audio/bomb.mp3";
+    let audio = new Audio(entranceThemeSound);
     let enabled = tokenData.active && isEnabled;
     let color = tokenData.color ? tokenData.color : 'white';
     if (enabled) {
         color = 'orange';
     }
+    let clicked =false;
     const getClassName = () => {
+        if(clicked) return "token token.clicked";
         if (enabled) return "token circle";
         return `token token.${color}`;
     }
+    const onClick=()=>{
+        clicked=true;
+        // audio.play();
+        //set style
+        handleTokenMove(tokenData);
+    }
     return (
-        <div disabled={!enabled} style={{ backgroundColor: 'white' }} className={getClassName()} onClick={() => handleTokenMove(tokenData)} >
+        <div disabled={!enabled} style={{ backgroundColor: 'white' }} className={getClassName()} onClick={() => onClick()} >
             <div style={{ backgroundColor: color }} className="head"></div>
             <div style={{ backgroundColor: color }} className="body"></div>
             <div style={{ backgroundColor: color }} className="arm arm-left"></div>

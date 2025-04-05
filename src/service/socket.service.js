@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 class SocketService {
     constructor() {
         console.log('inside socket constructor');
-        this.socket = io(process.env.REACT_APP_BASE_API_URL);
+        this.socket = io(process.env.REACT_APP_BASE_API_WS_URL);
         //TODO : add more methods
         this.SocketChannelContext = React.createContext();
 

@@ -24,6 +24,16 @@
 	color: white;
 }
 
+.diceValues{
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+    height: 15%;
+    /* width: 100%; */
+    /* color: red;
+}
+
 @-webkit-keyframes blackWhite {
 	0% {
 		background-color: white;

@@ -55,9 +55,9 @@ export default class SocketController {
         }
     };
 
-    connectSocket = (token) => async (dispatch) => {
+    connectSocket = (userId) => async (dispatch) => {
         console.log('connecting socket..');
-        const socket = io(process.env.REACT_APP_BASE_API_URL);
+        const socket = io(process.env.REACT_APP_BASE_API_WS_URL+'/?userId='+userId);
         //     , {
         //     query: { token }
         // }
