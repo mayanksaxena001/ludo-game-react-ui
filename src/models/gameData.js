@@ -16,7 +16,7 @@ let GameData = {
     diceCastComplete: false,
     selectedTokenId:'',
     colors: ['#ff0000', '#0000ff', '#008000', '#ffff00'],
-    home:[]
-
+    home:[],
+    moveTokenPositions:[]
 }
 export default GameData;

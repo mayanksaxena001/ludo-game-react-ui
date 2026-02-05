@@ -1,5 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
+import { createSlice } from '@reduxjs/toolkit';
 import GameData from '../models/gameData';
 import Player from '../models/player';
 
@@ -51,6 +50,9 @@ const socketSlice = createSlice({
                     }
                     if (data.home) {
                         state.gameData.home = data.home;
+                    }
+                    if(data.moveTokenPositions){
+                        state.gameData.moveTokenPositions=data.moveTokenPositions;
                     }
 
                 }

@@ -1,33 +1,19 @@
 // import logo from './logo.svg';
 import React, { useEffect } from 'react';
-import { getAllActiveTokens } from '../../models/util';
+import { getAllBoxes } from '../../models/util';
 import Box from '../box';
 import './verticalpath.css';
 
 function VerticalPath(props) {
-    const { id, height, width, color, data, handleTokenMove,isEnabled } = props;
+    const { id, height, width, color, data, handleTokenMove,isEnabled ,moveTokenPosition} = props;
     let className = '';
-    let COLORED_BOXES_ID = [8, 9, 10, 11, 12, 17];
-    const map = new Map();
-    let allTokens = getAllActiveTokens(data);
-    for (let i = 1; i <= 18; i++) {
-        const boxId = id + '-' + i;
-        let tokens = allTokens[boxId] ? allTokens[boxId] : [];
-        const box = <Box isEnabled={isEnabled} tokens={tokens} id={boxId} height={height} width={width} handleTokenMove={handleTokenMove} />;
-        map.set(i, box);
-    }
+    let map = getAllBoxes(data,id, height, width,color,isEnabled,handleTokenMove,moveTokenPosition);
     if (id === '1') {
         className = 'vertical-path-1';
     }
     else if (id === '3') {
         className = 'vertical-path-2';
     }
-    COLORED_BOXES_ID.map(boxId => {
-        const boxId_ = id + '-' + boxId;
-        let tokens = allTokens[boxId_] ? allTokens[boxId_] : [];
-        const box = <Box isEnabled={isEnabled} tokens={tokens} id={boxId_} color={color} height={height} width={width} handleTokenMove={handleTokenMove} />;
-        map.set(boxId, box);
-    });
     const boxes = Array.from(map.values());
 
     const pathBoxes = () => {
@@ -97,7 +83,8 @@ function VerticalPath(props) {
 
     useEffect(() => {
         console.log('Inside vt use effect');
-    });
+        map = getAllBoxes(data,id, height, width,color,isEnabled,handleTokenMove,moveTokenPosition);
+    },[moveTokenPosition]);
     return (
         <div className={className} >
             {pathBoxes()}

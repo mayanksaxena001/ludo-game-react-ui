@@ -6,7 +6,7 @@ import './sidebar.css';
 
 const ChatSidebar = (props) => {
     const dispatch = useDispatch();
-    const { room, handleSendMessage } = props;
+    const { gameData,room, handleSendMessage } = props;
     const [newMessage, setNewMessage] = useState('');
     const { messages, chatboxexpanded } = useSelector(state => state.socket);
     const [expanded, setExpanded] = useState(chatboxexpanded);
@@ -24,35 +24,40 @@ const ChatSidebar = (props) => {
         }
     };
     useEffect(() => {
-        console.log("inside sidebar use ieffect..");
+        console.log("inside sidebar use effect..");
         let result = [];
         for (var key in messages) {
             const message = messages[key];
             if (message) result.push(message);
         }
     }, [])
-    const ChatWindow = () => {
-        return <div className="chat-sidebar">
-            {/* <div className="chat-header">Chat Messages</div> */}
-            <div className="chat-messages">
-                {messages.map((message, index) => (
-                    <div key={index} className="message">
-                        <strong>{message.sender}:</strong> {message.text}
-                    </div>
-                ))}
-            </div>
-            <div className="chat-input">
-                <input
-                    type="text"
-                    placeholder="Type your message..."
-                    value={newMessage}
-                    autoFocus="autoFocus"
-                    onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <StyledButton disabled={newMessage == ''} size="large" onClick={() => handleSendButton()}>{<Avatar src={'/img/next.svg'} />}</StyledButton>
-            </div>
-        </div>
+
+    const getFormattedMessagePanel=()=>{
+        return messages.map((message, index) => (
+            getMessageBox(message,index)
+        ))
     }
+    const getMessageBox=(message,index)=>{
+        const player=gameData.players[message.userId];
+        return <div key={index} className="message">
+        <strong>{player.username}:</strong> {message.content}
+    </div>
+    }
+    const ChatWindow = () => <div className="chat-sidebar">
+        {/* <div className="chat-header">Chat Messages</div> */}
+        <div className="chat-messages">
+            {getFormattedMessagePanel()}
+        </div>
+        <div className="chat-input">
+            <input
+                type="text"
+                placeholder="Type your message..."
+                value={newMessage}
+                autoFocus="autoFocus"
+                onChange={(e) => setNewMessage(e.target.value)} />
+            <StyledButton disabled={newMessage == ''} size="large" onClick={() => handleSendButton()}>{<Avatar src={'/img/next.svg'} />}</StyledButton>
+        </div>
+    </div>
 
     const content = expanded ? <ChatWindow /> : '';
 

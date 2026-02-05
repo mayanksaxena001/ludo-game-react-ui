@@ -25,7 +25,8 @@ const ProgressBar = (props) => {
 
     useEffect(() => {
         if (progress == 100) {
-            setRunning(false);
+            // setRunning(false);
+            setProgress(0);
             handleTimeOut();
         }
     }, [progress]);
@@ -36,7 +37,7 @@ const ProgressBar = (props) => {
         // startInterval()
         const intervalId = setInterval(() => {
             if (progress < 100 && running) {
-                setProgress((prev) => prev + 20);
+                setProgress((prev) => prev + 2);
                 setRunning(true);
             }
         }, 1000);

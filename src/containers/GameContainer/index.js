@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import GameBoard from '../../components/gameboard';
 import { useDispatch, useSelector } from 'react-redux';
-import SocketController from '../../service/connectSocket';
+import SocketController from '../../service/socket.controller.js';
 import { addPlayer, disconnectSocket, setDiceValue, setGame, setPlayerTurn, updateGameData } from '../../reducers/socketReducer';
 import { fetchUser } from '../../reducers/userSlice';
 import './game_container.css';
 import { Button } from '@material-ui/core';
 import ChatSidebar from '../../components/sidebar';
+import { CSSTransition } from 'react-transition-group';
 let socketController = null;
 
 function LudoGame(props) {
@@ -20,6 +21,7 @@ function LudoGame(props) {
 
     // const gameStarted = useState(gameData.has_started);
     const [gameOver, setGameOver] = useState(gameData.has_stopped);
+    const [moveTokenPosition, setMoveTokenPosition] = useState('');
     // console.log('GameData', gameData);
     // console.log('Player', player);
     // console.log('socketController', socketController);
@@ -34,7 +36,7 @@ function LudoGame(props) {
         //TODO : get current game from server if not present
 
         if (!user) dispatch(fetchUser());
-        if (connected === false) dispatch(socketController.connectSocket(user.id));
+        if (connected === false) dispatch(socketController.connectSocket(user.id, currentGame.room));
         if (currentGame && gameData && !gameData.game.id) dispatch(setGame(currentGame));
         if (currentGame.room && connected && !joinedRoom) {
             if (user) {
@@ -46,7 +48,17 @@ function LudoGame(props) {
             console.log('============================//////////////===========');
 
         }
-
+        // if(gameData.move_token && gameData.diceCastComplete && gameData.selectedToken!==''){
+            if(gameData.moveTokenPositions.length >0){
+            console.log('move token on board..');
+            //move token strategy
+            let count=0;
+            setInterval(()=>{
+                //all boxes
+                setMoveTokenPosition(gameData.moveTokenPositions[count]);
+                count++;
+            },1000)
+        }
         //TODO problem with cleanupcode
         // return () => {
         //     if (connected === true) dispatch(socketController.disconnectSocket());
@@ -57,7 +69,7 @@ function LudoGame(props) {
         console.log('inside game use effect ...2..');
 
         return () => {
-             dispatch(socketController.disconnectSocket());
+            dispatch(socketController.disconnectSocket());
         }
     }, []);
 
@@ -80,14 +92,15 @@ function LudoGame(props) {
     }
 
     const handleSendMessage = (message) => {
-        let data = { room: currentGame.room, message: { text: message, sender: user.name } }
+        console.log('sending chat message..');
+        let data = { room: currentGame.room, userId: user.id, gameId: currentGame.id, content: message }
         dispatch(socketController.sendChatMessage(data));
     }
 
     const handleTimeOut = () => {
         console.log('Timeout..');
         // const player = this.gameData.turns[this.gameData.player_turn];
-        let data = {room: currentGame.room, userId: user.id, gameId: currentGame.id }
+        let data = { room: currentGame.room, userId: user.id, gameId: currentGame.id }
         // dispatch(socketController.timeOut({ userId: player.id, room: game.room }));
         dispatch(socketController.timeOut(data));
     }
@@ -122,34 +135,41 @@ function LudoGame(props) {
                 </Button>
             </div>
         }
+        else {
+            return <>
+                <h1>Waiting for players..</h1>
+            </>
+        }
     }
 
     const winners = () => {
-        let count = 0;
         let players = gameData.players;
         let home = gameData.home;
         let result = [];
         for (let i = 0; i < home.length; i++) {
             result.push(home[i]);
-
+            
         }
         for (var key in players) {
             const player = players[key];
             let found = false;
             for (let i = 0; i < home.length; i++) {
                 if (home[i] !== null && home[i] === player.id) found = true;
-
+                
             }
             if (!found) result.push(player.id);
         }
-
+        
+        let count = 0;
         return result.map(playerId => {
-            if(playerId ==null) return ;
+            if (playerId === null) return;
             let player = gameData.players[playerId];
-            const username = player!=null && player.username!=null ?player.username:"Null";
+            const username = player != null && player.username != null ? player.username : "Null";
             count++;
+            if(count > 3) return ;
+            const imageUrl = `/img/crown${count}.png`;
             return <div key={playerId} className='active_player'>
-                <span>{count}</span> : <span>{username}</span>
+               <img width='100px' height='100px' src={imageUrl} alt="logo" />; : <span>{username}</span>
             </div>;
         });
     }
@@ -164,24 +184,41 @@ function LudoGame(props) {
             <div className='active_players'>
                 {activePlayers()}
             </div>
-            <div className="loader">
+            <div className='active_players_1'>
                 {startButton()}
             </div>
         </div>)
     }
 
-    const content = (!gameData.has_started) ? <OverlapWindow /> : (
+    const conditioNwindow = () => {
+        if (!gameData.has_started) return <OverlapWindow />;
+    }
+    const content = (
         <SocketChannelContext.Provider value={gameData}>
-            <GameBoard id={currentGame.id} player={player} handleTokenMove={handleTokenMove} gameData={gameData} dicehandler={dicehandler} handleTimeOut={handleTimeOut} startGameHandler={startGameHandler} />
-            <ChatSidebar room={currentGame.room} handleSendMessage={handleSendMessage} socketController={socketController}></ChatSidebar>
+            {conditioNwindow()}
+            <GameBoard id={currentGame.id} player={player} handleTokenMove={handleTokenMove} gameData={gameData} dicehandler={dicehandler} handleTimeOut={handleTimeOut} messages={messages} moveTokenPosition={moveTokenPosition}/>
+            <ChatSidebar room={currentGame.room} gameData={gameData} handleSendMessage={handleSendMessage} socketController={socketController} ></ChatSidebar>
         </SocketChannelContext.Provider>
     );
+    // return <>
+    //     <div className='main-game-board'>
+    //         {content}
+    //     </div>
+    // </>;
     return <>
-        <div className='main-game-board'>
-            {content}
-        </div>
-    </>;
-    // }
+        <CSSTransition
+            in={true}
+            timeout={2000}
+            classNames="fade"
+            unmountOnExit
+            appear
+            enter={false}
+        >
+            <div className='main-game-board'>
+                {content}
+            </div>
+        </CSSTransition>
+    </>
 }
 
 export default LudoGame;

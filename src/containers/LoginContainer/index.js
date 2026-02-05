@@ -21,7 +21,7 @@ function Login() {
       setUsername('');
       setPassword('');
     }
-  }, [loading, error]);
+  }, [navigate,loading, error]);
 
   const handleOnLogin = () => {
     console.log('Login clicked..');
@@ -34,12 +34,17 @@ function Login() {
     event.preventDefault();
   }
 
+  const signUphandler = () => {
+    // setLoginEnabled(true);
+    navigate('/signup');
+  }
 
-  const Spinner = () => <div className="loader"></div>;
-  const content = loading ? <Spinner /> : (
-    <div className='login'>
-      <form onSubmit={handleSubmit}>
-        {error ? <p className={error ? "errorMsg" : "offscreen"} style={{ color: 'red' }} aria-live="assertive"> {error}</p> : ''}
+  const NewWindow=()=>{
+    return <>
+    {/* <div class="loader" disabled={loading}></div> */}
+    <div class="container">
+      <div class="login-form">
+        <div>
         <input
           placeholder='username'
           id="username"
@@ -48,6 +53,8 @@ function Login() {
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="off"
           required />
+        </div>
+        <div>
         <input
           placeholder='password'
           id="password"
@@ -57,10 +64,51 @@ function Login() {
           autoComplete="off"
           required
         />
-        <Button disabled={username == '' || password == ''} block="true" size="large" type="submit" onClick={() => handleOnLogin()}>Login</Button>
-      </form>
+        </div>
+        <div class="btn-right">
+        <button disabled={username === '' || password === ''} block="true" size="large" type="submit" onClick={() => handleOnLogin()}>Login
+            </button>
+        </div>
+        <div class="btn-right">
+          <button class="buttonlink" onClick={() => signUphandler()}>Sign Up
+            <span>
+              <img src="/img/arrow_dark.svg" />
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
-  );
+    </>
+  }
+
+  const Spinner = () => <div className="loader"></div>;
+  const content = loading ? <Spinner /> : <NewWindow/>;
+  //  (
+  //   <div className='login'>
+  //     <form onSubmit={handleSubmit}>
+  //       {error ? <p className={error ? "errorMsg" : "offscreen"} style={{ color: 'red' }} aria-live="assertive"> {error}</p> : ''}
+  //       <input
+  //         placeholder='username'
+  //         id="username"
+  //         value={username}
+  //         type="text"
+  //         onChange={(e) => setUsername(e.target.value)}
+  //         autoComplete="off"
+  //         required />
+  //       <input
+  //         placeholder='password'
+  //         id="password"
+  //         value={password}
+  //         type='password'
+  //         onChange={(e) => setPassword(e.target.value)}
+  //         autoComplete="off"
+  //         required
+  //       />
+  //       <Button disabled={username == '' || password == ''} block="true" size="large" type="submit" onClick={() => handleOnLogin()}>Login</Button>
+  //     </form>
+  //   </div>
+  // );
+  
   return <>
     <CSSTransition
       in={true}
@@ -72,6 +120,7 @@ function Login() {
     >{content}
     </CSSTransition>
   </>
+ 
 }
 
 export default Login;

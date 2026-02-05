@@ -14,7 +14,7 @@ import './dashboard.css';
 import { Button, Select } from '@material-ui/core';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NewDashBoard from './DashBoard';
-
+import { CSSTransition } from 'react-transition-group';
 function Dashboard(props) {
     // const { user } = props;
     const { user } = useSelector(state => state.user);
@@ -24,6 +24,7 @@ function Dashboard(props) {
 
     const [tokenCount, setTokenCount] = useState(2);
     const [playerCount, setPlayerCount] = useState(2);
+    const [gameIndex, setGameIndex] = useState(0);
 
     useEffect(() => {
         console.log('use effect dashboard');
@@ -65,6 +66,18 @@ function Dashboard(props) {
             <Button block="true" size="large" type="submit" onClick={() => handleLogout()}>
                 <LogoutIcon style={{ height: '50px', width: '50px' }} />
             </Button>
+        </div>
+    }
+
+    const CoinBox = () => {
+        return <div className='coin-box'>
+          <img style={{height:'50px',width:'50px'}} src='/img/dice.png' alt="logo" />
+            <img style={{height:'50px',width:'50px'}} src='/img/banana.svg' alt="logo" />
+            <img style={{height:'50px',width:'50px'}} src='/img/orange.svg' alt="logo" />
+          <Button block="true" size="large" type="submit" onClick={() => {}}>
+                <img style={{height:'50px',width:'50px'}} src='/img/next.svg' alt="logo" />
+            </Button>
+            <Logout/>
         </div>
     }
 
@@ -146,36 +159,135 @@ function Dashboard(props) {
             </select>
         </div>
     }
+
+    const GamesPanel = () => {
+        let game = games[gameIndex];
+        if (game)
+            return <>
+                <span style={{ color: 'white',fontSize:'25px' }}>Live Games!</span>
+                <div className='game-panel'>
+                    <Button disabled={gameIndex <= 0} block="true" size="large" type="submit" onClick={() => { setGameIndex(prev => prev - 1) }}>
+                        <img className='cursor' style={{ width: '100%' }} src='/img/left_arrow_circle.svg' alt="logo" />
+                    </Button>
+
+                    <GamesPanelRow 
+                        count={gameIndex + 1}
+                        id={game.id}
+                        room={game.room}
+                        created_by={game.created_by_user}
+                        token_count={game.token_count}
+                        player_count={game.player_count}
+                    />
+                    <Button disabled={gameIndex >= games.length-1}  block="true" size="large" type="submit" onClick={() => { setGameIndex(prev => prev + 1) }}>
+                        <img className='cursor' style={{ width: '100%' }} src='/img/right_arrow_circle.svg' alt="logo" />
+                    </Button>
+                </div>
+            </>
+        else{
+            return < >
+            <div className='game-panel'>
+            <span style={{ color: 'white' }}>No Live Games! Create a game to play.</span>
+            </div>
+            </>
+        }
+    }
+
+    const GamesPanelRow = (props) => {
+        return <>
+            <div className='games-panel-row'>
+                <div className='games-panel-row-info'>
+                    <h5>ROOM</h5>
+                    <span style={{ color: 'white' }}>{props.room}</span>
+                    <Button block="true" size="large" type="submit" onClick={(e) => handleJoinRoom(props.count - 1)}>
+                        <img className='cursor' style={{ width: '20%' }} src='/img/right-arrow.png' alt="logo" />
+                    </Button>
+                </div>
+                <div className='games-panel-row-info'>
+                    <h5>COUNT</h5>
+                    <span style={{ color: 'white' }}>{props.count}</span>
+                </div>
+                {/* <div className='games-panel-row-info'>
+                <h5>ID</h5>
+                <span style={{ color: 'white' }}>{props.id}</span>
+                </div> */}
+                <div className='games-panel-row-info'>
+                    <h5>TOKEN COUNT</h5>
+                    <span style={{ color: 'white' }}>{props.token_count}</span>
+                </div>
+                <div className='games-panel-row-info'>
+                    <h5>PLAYER COUNT</h5>
+                    <span style={{ color: 'white' }}>{props.player_count}</span>
+                </div>
+                <div className='games-panel-row-info'>
+                    <h5>CREATED BY</h5>
+                    <span style={{ color: 'white' }}>{props.created_by}</span>
+                </div>
+            </div>
+        </>
+    }
+
     const Spinner = () => <div className="loader"></div>;
     const content = loading ? <Spinner /> : (
         <div className='dashboard'>
             <div className='profile-box'>
                 <Profile user={user} />
-                <Logout />
+                {/* <Logout /> */}
+                <CoinBox />
             </div>
             <div className='home-box'>
                 {/* <div className="box active" onClick={() => joinGame()}>Join Game</div> */}
-                <div className="box active">
-                    <button className='cursor' onClick={() => handleCreateGame()}>
-                        Create Game
-                    </button>
-                    <div>
-                        Token Count :
-                        <TokenComboxBox />
+                <div>
+                    <div className="box" style={{ backgroundColor: 'transparent' }}>
+                        <Button block="true" size="large" type="submit" onClick={() => { }}>
+                            <img style={{ width: '100%' }} src='/img/right-arrow.png' alt="logo" />
+                        </Button>
+                        <span style={{ color: 'white' }}>PLAY WITH FRIENDS</span>
                     </div>
-                    <div>
-                        Player Count :
-                        <PlayerComboxBox />
+                    <div className="box " style={{ backgroundColor: 'transparent' }}>
+                        <div>
+                            <span style={{ color: 'white' }}>TOKEN COUNT</span>
+                            <TokenComboxBox />
+                        </div>
+                        <div>
+                            <span style={{ color: 'white' }}>PLAYER COUNT</span>
+                            <PlayerComboxBox />
+                        </div>
+                        <Button block="true" size="large" className='cursor' onClick={() => handleCreateGame()}>
+                            <img className='cursor' style={{ width: '50%' }} src='/img/next.svg' alt="logo" />
+                        </Button>
+                        <span style={{ color: 'white' }}>CREATE GAME</span>
                     </div>
+                </div>
+                <div>
+                <div className="box">
+                <img style={{height:'100%',width:'100%'}} src='/img/galaxy.gif' alt="logo" />
+                <span style={{color:'white'}}>COMING SOON!</span>
+                </div>
+                <div className="box">
+                <img style={{height:'100%',width:'100%'}} src='/img/4.gif' alt="logo" />
+                <span style={{color:'white'}}>COMING SOON!</span>
+                </div>
                 </div>
             </div>
             <div className='games'>
-                <GamesTable />
+                {/* <GamesTable /> */}
+                <GamesPanel/>
             </div>
         </div>
     );
     const newDashBoard = <NewDashBoard games={games} user={user}></NewDashBoard>;
-    return content;
+    return <>
+        <CSSTransition
+            in={true}
+            timeout={2000}
+            classNames="fade"
+            unmountOnExit
+            appear
+            enter={false}
+        >
+            {content}
+        </CSSTransition>
+    </>
 }
 
 export default Dashboard;

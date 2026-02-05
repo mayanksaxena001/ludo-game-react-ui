@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 import React from 'react';
 import './index.css';
 
@@ -41,7 +41,11 @@ function Profile(props) {
         {...props} /> */}
     return (
         <div className='profile'>
-            <Avatar style={{height:'100px',width:'100px'}}>{props.user.username}</Avatar>
+            <Avatar style={{height:'69px',width:'31%',backgroundColor:'#c1c603'}}></Avatar>
+            {/* <Button  size="small" type="submit" onClick={() => {}}>
+                <img style={{width:'25%',backgroundColor:'#c1c603'}} src='/img/person.svg' alt="logo" />
+            </Button> */}
+            <div>{props.user.name}</div>
         </div>
     );
 }

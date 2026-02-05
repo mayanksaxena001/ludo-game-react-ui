@@ -2,27 +2,13 @@
 import React, { useEffect } from 'react';
 import './horizontalpath.css';
 import Box from '../box';
-import { getAllActiveTokens } from '../../models/util';
+import { getAllBoxes } from '../../models/util';
 
 function HorizontalPath(props) {
-    const { id, height, width, color, data, handleTokenMove,isEnabled } = props;
+    const { id, height, width, color, data, handleTokenMove,isEnabled ,moveTokenPosition} = props;
     let className = '';
-    let COLORED_BOXES_ID = [8, 9, 10, 11, 12, 17];
-    const map = new Map();
+    let map =getAllBoxes(data,id, height, width,color,isEnabled,handleTokenMove,moveTokenPosition);
 
-    let allTokens = getAllActiveTokens(data);
-    for (let i = 1; i <= 18; i++) {
-        const boxId = id + '-' + i;
-        let tokens = allTokens[boxId] ? allTokens[boxId] : [];
-        const box = <Box isEnabled={isEnabled} tokens={tokens} id={boxId} height={height} width={width} handleTokenMove={handleTokenMove} />;
-        map.set(i, box);
-    }
-    COLORED_BOXES_ID.map(boxId => {
-        const boxId_ = id + '-' + boxId;
-        let tokens = allTokens[boxId_] ? allTokens[boxId_] : [];
-        const box = <Box isEnabled={isEnabled} tokens={tokens} id={boxId_} color={color} height={height} width={width} handleTokenMove={handleTokenMove} />;
-        map.set(boxId, box);
-    });
     const boxes = Array.from(map.values());
     
     if (id === '4') {
@@ -99,7 +85,8 @@ function HorizontalPath(props) {
 
     useEffect(() => {
         console.log('Inside hz use effect');
-    });
+        map = getAllBoxes(data,id, height, width,color,isEnabled,handleTokenMove,moveTokenPosition);
+    },[moveTokenPosition]);
     return (
         <div className={className} >
             {pathBoxes()}

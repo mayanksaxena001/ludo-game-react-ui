@@ -5,21 +5,22 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	width: 100%;
-	background-color: #0b1116;
+	/* width: 100%; */
+	/* background-color: #0b1116; */
 	color: white;
 }
 
 .board {
-	height: 816px;
-	width: 826px;
+	/* height: 68%;
+	width: 80%; */
 	/* margin: 20px; */
-	/* border: 1px solid black; */
+	border: 1px solid wheat;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	/* border-style: groove; */
+	margin: 10px 0 10px 0;
 }
 
 .board-houses-1 {
@@ -30,6 +31,7 @@
 	justify-content: space-between;
 	/* padding-bottom: 50px; */
 	align-items: center;
+	/* border: 1px solid whitesmoke; */
 }
 
 .center-board-houses {
@@ -40,6 +42,7 @@
 	/* height: 100%; */
 	/* padding-top: 50px; */
 	align-items: center;
+	/* border: 1px solid whitesmoke; */
 }
 
 .board-houses-2 {
@@ -50,13 +53,14 @@
 	justify-content: space-between;
 	/* padding-top: 50px; */
 	align-items: center;
+	/* border: 1px solid whitesmoke; */
 }
 
 .center-path {
 	display: flex;
 	/* background-color: grey; */
-	height: 100%;
-	width: 50%;
+	/* height: 100%; */
+	width: 115px;
 	/* border: 5px dotted green; */
 	/* border-radius: 10vh; */
 	justify-content: center;
@@ -69,3 +73,149 @@ div[disabled] {
 	pointer-events: none;
 	opacity: 0.4;
 }
+
+.player-info-panel {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	/* height: 0%; */
+	width: 100%;
+	/* border: 1px solid #c1c603; */
+  }
+
+.player-info-box-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  /* border: 1px solid #c1c603; */
+  height: 100%;
+  width: 28%;
+}
+
+.player-info-box-1-reverse {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: flex-end;
+	/* border: 1px solid #c1c603; */
+	height: 100%;
+	width: 28%;
+  }
+
+.player-info-box-2 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	/* border: 1px solid #c1c603; */
+	height: 100%;
+	width: 28%;
+  }
+
+  .player-info-box-2-reverse {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: flex-start;
+	/* border: 1px solid #c1c603; */
+	height: 100%;
+	width: 28%;
+  }
+
+  .blink {
+    animation-name: blinkBox;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+  @keyframes blinkBox {
+    0% {
+		border-color: yellow;
+    }
+
+    50% {
+		background-color: red;
+    }
+	75% {
+        border-color: green;
+    }
+    100% {
+        background-color: blue;
+    }
+}
+
+/* styles.css */
+.ludo-center {
+	position: absolute;
+	/* width: 200px;
+	height: 200px; */
+	margin: 0 auto;
+	transform: rotate(45deg); /* Makes triangles look symmetrical */
+  }
+  
+  .triangle {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+  }
+  
+  .color1 {
+	border-width: 80px 80px 0 0;
+	top: 0;
+	left: 0;
+  }
+  
+  .color2 {
+	border-width: 0 80px 80px 0;
+	top: 0;
+	right: 0;
+  }
+  
+  .color3 {
+	border-width: 0 0 80px 80px;
+	bottom: 0;
+	right: 0;
+  }
+  
+  .color4 {
+	border-width: 80px 0 0 80px;
+	bottom: 0;
+	left: 0;
+  }
+
+  .player-info {
+    height: 100px;
+    width: 100px;
+    /*! margin: 10px; */
+    transition: linear;
+    /* background: hsla(0, 100%, 100%, 0.6); */
+    border: 1px solid #c1c603;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 100%;
+  font-style: normal;
+  font-weight: bold;
+  color: white;
+  position: relative;
+}
+
+.chat-message {
+    position: relative;
+    top: 50px;
+    right: 20px;
+    background-color: black;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+	color: white;
+  }

@@ -16,8 +16,8 @@ function DiceRoller(props) {
       dicehandler(randomNum);
       //
       setRolling(false);
-      // let audio = new Audio('/audio/dice.mp3')//not working for some browser
-      // audio.play();
+      let audio = new Audio('/audio/dice.mp3')//not working for some browser
+      audio.play();
     }, 3000);
   };
 

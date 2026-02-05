@@ -36,11 +36,6 @@ function House(props) {
     if (data.has_started && player.player_turn === data.player_turn) return <ProgressBar key={id} bgcolor={color} handleTimeOut={handleTimeOut} data={data} />
   }
 
-  const playerName = () => {
-    if (player !== undefined && player.username !== undefined) return player.username;
-    return '';
-  }
-
   // <Token disabled={isDisabled} player={player} color={color} handleTokenMove={handleTokenMove} id={1} value={id} minheight={height} minWidth={width} data={data} />
   const tokenBox = () => {
     let tokens = player.house && player.house.tokens ? player.house.tokens : [];
@@ -49,21 +44,11 @@ function House(props) {
     let token2 = tokens && tokens[1] && tokens[1].position === 'base' ? [tokens[1]] : [];
     let token3 = tokens && tokens[2] && tokens[2].position === 'base' ? [tokens[2]] : [];
     let token4 = tokens && tokens[3] && tokens[3].position === 'base' ? [tokens[3]] : [];
-    const diceImages = (value) => {
-      const imageUrl = `/img/dice${value}.png`;
-      return <img width='100%' height='100%' src={imageUrl} alt="logo" />;
-    }
+    
     return <>
       <div className='tokens'>
         <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token1} handleTokenMove={handleTokenMove} />
         <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token2} handleTokenMove={handleTokenMove} />
-      </div>
-      <div className='diceValues'>
-        {dicevalues.map(value => {
-          return <div key={value}>
-            {diceImages(value)}
-          </div>;
-        })}
       </div>
       <div className='tokens'>
         <Box isEnabled={isEnabled} height={minHeight} width={minWidth} tokens={token3} handleTokenMove={handleTokenMove} />
@@ -71,11 +56,21 @@ function House(props) {
       </div>
     </>
   }
+  const diceImages = (value) => {
+    const imageUrl = `/img/dice${value}.png`;
+    return <img width='100%' height='100%' src={imageUrl} alt="logo" />;
+  }
   return (
     <div disabled={!enabled} className={getHouseClass()} style={{ borderColor: color, height: { height }, minHeight: { minHeight_ }, maxHeight: { maxHeight }, width: { width }, minWidth: { minWidth_ }, maxWidth: { maxWidth } }}>
       {tokenBox()}
+      {/* <div className='diceValues'>
+        {dicevalues.map(value => {
+          return <div key={value}>
+            {diceImages(value)}
+          </div>;
+        })}
+      </div> */}
       <h1 style={{ backgroundColor: { color } }}>
-        {playerName()}
       </h1>
       {displayProgressbar()}
       {/* <Profile  {...props} /> */}

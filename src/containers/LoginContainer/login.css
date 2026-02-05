@@ -56,3 +56,28 @@ input {
   opacity: 0;
   transition: opacity 150ms linear;
 }
+
+.container {
+  display: flex;
+  /* background-color: #fff !important; */
+  /* align-self: center; */
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  background-color: #040d14;
+  padding: 250px 100px;
+  align-items: center;
+  border: 25px groove azure;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+}
+
+.btn-right {
+  margin-left: auto;
+  color: #f3f3f3;
+}
